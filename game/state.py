@@ -1,5 +1,6 @@
 # Minimal game state for pytest example
 # English comments included
+# test comment
 
 class GameState:
     @staticmethod
