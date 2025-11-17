@@ -1,0 +1,29 @@
+name: Python tests  # Workflow name shown in GitHub UI
+
+on:                 # When to trigger this workflow
+  push:             # Run on push
+    branches: [ "main" ]   # Only when pushing to main branch
+  pull_request:             # And also on pull requests
+    branches: [ "main" ]    # Targeting the main branch
+
+jobs:               # Define jobs to run in this workflow
+  test:             # Job name (can be any identifier)
+    runs-on: ubuntu-latest  # Use GitHub-hosted Ubuntu runner
+
+    steps:          # List of steps to execute in this job
+      - name: Checkout repository
+        uses: actions/checkout@v4  # Step 1: fetch the repo contents
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Step 2: install Python
+        with:
+          python-version: "3.11"       # Specify Python version
+
+      - name: Install dependencies
+        run: |                         # Step 3: install pytest
+          python -m pip install --upgrade pip  # Upgrade pip
+          pip install -r requirements.txt      # Install packages
+
+      - name: Run pytest
+        run: |                         # Step 4: run tests
+          pytest -q                    # Execute pytest in quiet mode
